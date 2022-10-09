@@ -1,9 +1,35 @@
-﻿using System;
+﻿using System
+/* Unmerged change from project 'Lab2Solution (net6.0-ios)'
+Before:
 using System.IO;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.Json;
+After:
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+*/
+
+/* Unmerged change from project 'Lab2Solution (net6.0-windows10.0.19041.0)'
+Before:
+using System.IO;
+using System.Collections.Generic;
+After:
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+*/
+
+/* Unmerged change from project 'Lab2Solution (net6.0-maccatalyst)'
+Before:
+using System.IO;
+using System.Collections.Generic;
+After:
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+*/
+.Collections.ObjectModel;
+using System.Text.Json;
 
 // https://www.dotnetperls.com/serialize-list
 // https://www.daveoncsharp.com/2009/07/xml-serialization-of-collections/

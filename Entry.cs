@@ -1,5 +1,4 @@
-﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Lab2Solution
 {
@@ -11,7 +10,7 @@ namespace Lab2Solution
         String answer;
         int difficulty;
         String date;
-        int id; 
+        int id;
 
         public String Clue
         {
@@ -39,13 +38,13 @@ namespace Lab2Solution
 
         public String Date
         {
-            get { return date;  }
+            get { return date; }
             set { SetProperty(ref date, value); }
         }
 
         public int Id
         {
-            get { return id;  }
+            get { return id; }
             set { SetProperty(ref id, value); }
         }
 

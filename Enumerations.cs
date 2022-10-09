@@ -1,5 +1,4 @@
-﻿using System;
-namespace Lab2Solution
+﻿namespace Lab2Solution
 {
     public enum InvalidFieldError
     {

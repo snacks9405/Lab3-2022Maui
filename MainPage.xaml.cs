@@ -22,7 +22,7 @@ namespace Lab2Solution
             if (validDifficulty)
             {
                 InvalidFieldError invalidFieldError = MauiProgram.ibl.AddEntry(clue, answer, difficulty, date);
-                if(invalidFieldError != InvalidFieldError.NoError)
+                if (invalidFieldError != InvalidFieldError.NoError)
                 {
                     DisplayAlert("An error has occurred while adding an entry", $"{invalidFieldError}", "OK");
                 }
@@ -37,7 +37,7 @@ namespace Lab2Solution
         {
             Entry selectedEntry = EntriesLV.SelectedItem as Entry;
             EntryDeletionError entryDeletionError = MauiProgram.ibl.DeleteEntry(selectedEntry.Id);
-            if(entryDeletionError != EntryDeletionError.NoError)
+            if (entryDeletionError != EntryDeletionError.NoError)
             {
                 DisplayAlert("An error has occurred while deleting an entry", $"{entryDeletionError}", "OK");
             }
@@ -59,7 +59,7 @@ namespace Lab2Solution
                 selectedEntry.Difficulty = difficulty;
                 Console.WriteLine($"Difficuilt is {selectedEntry.Difficulty}");
                 EntryEditError entryEditError = MauiProgram.ibl.EditEntry(selectedEntry.Clue, selectedEntry.Answer, selectedEntry.Difficulty, selectedEntry.Date, selectedEntry.Id);
-                if(entryEditError != EntryEditError.NoError)
+                if (entryEditError != EntryEditError.NoError)
                 {
                     DisplayAlert("An error has occurred while editing an entry", $"{entryEditError}", "OK");
                 }

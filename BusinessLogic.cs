@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace Lab2Solution
 {
@@ -13,13 +11,14 @@ namespace Lab2Solution
         const int MAX_CLUE_LENGTH = 250;
         const int MAX_ANSWER_LENGTH = 21;
         const int MAX_DIFFICULTY = 2;
-        int latestId = 0;
 
         IDatabase db;                     // the actual database that does the hardwork
 
         public BusinessLogic()
         {
-            db = new FlatFileDatabase(); // new RelationalDatabase();           // 
+
+            
+            db = new RelationalDatabase();
         }
 
 
@@ -82,10 +81,38 @@ namespace Lab2Solution
             {
                 return result;
             }
-            Entry entry = new Entry(clue, answer, difficulty, date, ++latestId);
+            Entry entry = new Entry(clue, answer, difficulty, date, getUniqueID());
             db.AddEntry(entry);
 
             return InvalidFieldError.NoError;
+        }
+
+        /// <summary>
+        /// gives entry a unique id number
+        /// </summary>
+        /// <returns>unique id number</returns>
+        public int getUniqueID()
+        {
+            int uniqueID = 0;
+            bool unique = false;
+            ObservableCollection<Entry> entries = db.GetEntries();
+
+            while (!unique)
+            {
+                int compare = uniqueID;
+                foreach (Entry entry in entries)
+                {
+                    if (entry.Id == uniqueID)
+                    {
+                        uniqueID++;
+                        break;
+                    } 
+                    
+                }
+                if (compare == uniqueID) { unique = true; }
+            }
+
+            return uniqueID;
         }
 
         /// <summary>

@@ -1,10 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.Json;
-using System.Collections.ObjectModel;
-using Npgsql;
+﻿using Npgsql;
+using System.Collections.
+ObjectModel;
 
 // https://www.dotnetperls.com/serialize-list
 // https://www.daveoncsharp.com/2009/07/xml-serialization-of-collections/
@@ -30,8 +26,6 @@ namespace Lab2Solution
         /// </summary>
         ObservableCollection<Entry> entries = new ObservableCollection<Entry>();
 
-        JsonSerializerOptions options;
-
 
         /// <summary>
         /// Here or thereabouts initialize a connectionString that will be used in all the SQL calls
@@ -51,11 +45,20 @@ namespace Lab2Solution
         {
             try
             {
-                entry.Id = entries.Count + 1;
                 entries.Add(entry);
 
-                // write the SQL to INSERT entry into bit.io
-              
+                using var con = new NpgsqlConnection(connectionString);
+                con.Open();
+
+                var sql = "INSERT INTO entries (clue, answer, difficulty, date, id) VALUES(@clue, @answer, @difficulty, @date, @id)";
+                using var cmd = new NpgsqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("clue", entry.Clue);
+                cmd.Parameters.AddWithValue("answer", entry.Answer);
+                cmd.Parameters.AddWithValue("difficulty", entry.Difficulty);
+                cmd.Parameters.AddWithValue("date", entry.Date);
+                cmd.Parameters.AddWithValue("id", entry.Id);
+
+                cmd.ExecuteNonQuery();
 
             }
             catch (IOException ioe)
@@ -93,10 +96,15 @@ namespace Lab2Solution
             {
                 var result = entries.Remove(entry);
 
+                using var con = new NpgsqlConnection(connectionString);
+                con.Open();
 
-                // Write the SQL to DELETE entry from bit.io. You have its id, that should be all that you need
+                var sql = "DELETE FROM entries WHERE id = @id";
 
+                using var cmd = new NpgsqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("id", entry.Id);
 
+                cmd.ExecuteNonQuery();
 
                 return true;
             }
@@ -125,7 +133,18 @@ namespace Lab2Solution
 
                     try
                     {
-                       /// write the SQL to UPDATE the entry. Again, you have its id, which should be all you need.
+                        using var con = new NpgsqlConnection(connectionString);
+                        con.Open();
+
+                        var sql = "UPDATE entries SET clue = @clue, answer = @answer, difficulty = @difficulty, date = @date WHERE id=@id";
+                        using var cmd = new NpgsqlCommand(sql, con);
+                        cmd.Parameters.AddWithValue("clue", replacementEntry.Clue);
+                        cmd.Parameters.AddWithValue("answer", replacementEntry.Answer);
+                        cmd.Parameters.AddWithValue("difficulty", replacementEntry.Difficulty);
+                        cmd.Parameters.AddWithValue("date", replacementEntry.Date);
+                        cmd.Parameters.AddWithValue("id", replacementEntry.Id);
+
+                        cmd.ExecuteNonQuery();
 
                         return true;
                     }
@@ -185,10 +204,10 @@ namespace Lab2Solution
         public String InitializeConnectionString()
         {
             var bitHost = "db.bit.io";
-            var bitApiKey = ""; // from the "Password" field of the "Connect" menu
+            var bitApiKey = "v2_3uhDa_4A5Yf88VcQpeyFQwX4y2G8E"; // from the "Password" field of the "Connect" menu
 
-            var bitUser = "";
-            var bitDbName = "";
+            var bitUser = "snacks9405";
+            var bitDbName = "snacks9405/Lab3-2022Maui";
 
             return connectionString = $"Host={bitHost};Username={bitUser};Password={bitApiKey};Database={bitDbName}";
         }
