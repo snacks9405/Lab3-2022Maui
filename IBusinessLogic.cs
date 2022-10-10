@@ -10,6 +10,6 @@ namespace Lab2Solution
         EntryDeletionError DeleteEntry(int entryId);
         EntryEditError EditEntry(string clue, string answer, int difficulty, string date, int id);
         Entry FindEntry(int id);
-        ObservableCollection<Entry> GetEntries();
+        ObservableCollection<Entry> GetEntries(String sortBy);
     }
 }

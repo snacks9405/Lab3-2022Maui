@@ -6,16 +6,15 @@
     <ScrollView>
         <Grid Padding="25">
             <Grid.RowDefinitions>
-                <RowDefinition  Height="*"></RowDefinition>
-                <RowDefinition Height="5*"></RowDefinition>
-                <RowDefinition Height="2*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition  Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="2*"/>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*">
                 </ColumnDefinition>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"/>
 
             </Grid.ColumnDefinitions>
             <Label Text="Clue Compendium" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"  FontSize="48"/>
@@ -24,6 +23,8 @@
                 <Button Text="Add Entry" Clicked="AddEntry" Margin="20"/>
                 <Button Text="Delete Entry" Clicked="DeleteEntry" Margin="20"/>
                 <Button Text="Edit Entry" Clicked="EditEntry" Margin="25"/>
+                <Switch Toggled="OnToggled"/>
+                <Label Text="Toggle between sorting by clue or by answer"/>
 
             </VerticalStackLayout>
 

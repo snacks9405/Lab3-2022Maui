@@ -162,7 +162,7 @@ namespace Lab2Solution
         /// Retrieves all the entries
         /// </summary>
         /// <returns>all of the entries</returns>
-        public ObservableCollection<Entry> GetEntries()
+        public ObservableCollection<Entry> GetEntries(String sortBy)
         {
             while (entries.Count > 0)
             {
@@ -172,7 +172,7 @@ namespace Lab2Solution
             using var con = new NpgsqlConnection(connectionString);
             con.Open();
 
-            var sql = "SELECT * FROM \"entries\" limit 10;";
+            var sql = "SELECT * FROM entries ORDER BY " + sortBy + " limit 10;";
 
             using var cmd = new NpgsqlCommand(sql, con);
 

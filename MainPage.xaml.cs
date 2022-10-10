@@ -4,17 +4,33 @@ namespace Lab2Solution
 
     public partial class MainPage : ContentPage
     {
-
+        bool sortByClue = true;
         public MainPage()
         {
             InitializeComponent();
-            EntriesLV.ItemsSource = MauiProgram.ibl.GetEntries();
+            EntriesLV.ItemsSource = MauiProgram.ibl.GetEntries((sortByClue ? "clue" : "answer"));
         }
 
+        /// <summary>
+        /// toggles sorting based on clue or answer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnToggled(object sender, ToggledEventArgs e)
+        {
+            sortByClue = !sortByClue;
+            EntriesLV.ItemsSource = MauiProgram.ibl.GetEntries((sortByClue ? "clue" : "answer"));
+        }
+
+        /// <summary>
+        /// adds entry 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void AddEntry(System.Object sender, System.EventArgs e)
         {
             String clue = clueENT.Text;
-            String answer = answerENT.Text;
+            String answer = answerENT.Text.ToUpper();
             String date = dateENT.Text;
 
             int difficulty;
@@ -33,6 +49,11 @@ namespace Lab2Solution
             }
         }
 
+        /// <summary>
+        /// deletes entry
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void DeleteEntry(System.Object sender, System.EventArgs e)
         {
             Entry selectedEntry = EntriesLV.SelectedItem as Entry;
@@ -43,6 +64,11 @@ namespace Lab2Solution
             }
         }
 
+        /// <summary>
+        /// edits entry
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void EditEntry(System.Object sender, System.EventArgs e)
         {
 
@@ -68,6 +94,11 @@ namespace Lab2Solution
 
         }
 
+        /// <summary>
+        /// neat way to grab the selected entry. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void EntriesLV_ItemSelected(System.Object sender, Microsoft.Maui.Controls.SelectedItemChangedEventArgs e)
         {
             Entry selectedEntry = e.SelectedItem as Entry;

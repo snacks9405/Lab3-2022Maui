@@ -27,9 +27,9 @@ namespace Lab2Solution
         /// This also could have been a property
         /// </summary>
         /// <returns>ObservableCollection of entrties</returns>
-        public ObservableCollection<Entry> GetEntries()
+        public ObservableCollection<Entry> GetEntries(String sortBy)
         {
-            return db.GetEntries();
+            return db.GetEntries(sortBy);
         }
 
         public Entry FindEntry(int id)
@@ -95,7 +95,7 @@ namespace Lab2Solution
         {
             int uniqueID = 0;
             bool unique = false;
-            ObservableCollection<Entry> entries = db.GetEntries();
+            ObservableCollection<Entry> entries = db.GetEntries("id");
 
             while (!unique)
             {

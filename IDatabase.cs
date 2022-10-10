@@ -7,7 +7,7 @@ namespace Lab2Solution
         void AddEntry(Entry entry);
         bool DeleteEntry(Entry entry);
         Entry FindEntry(int id);
-        ObservableCollection<Entry> GetEntries();
+        ObservableCollection<Entry> GetEntries(String sortBy);
         bool EditEntry(Entry replacementEntry);
     }
 }
